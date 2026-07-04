@@ -1,10 +1,9 @@
-import { Instagram, Twitter, Linkedin, Dribbble, Zap } from "lucide-react";
+import { Instagram, Mail, Phone, Zap } from "lucide-react";
 
 const socials = [
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/boltlabs" },
-  { icon: Twitter, label: "Twitter", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Dribbble, label: "Dribbble", href: "#" },
+  { icon: Mail, label: "Email", href: "mailto:boltlabs1@gmail.com" },
+  { icon: Phone, label: "Phone", href: "tel:+919971210492" },
 ];
 
 const Footer = () => {
@@ -20,7 +19,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="mt-4 text-sm text-zinc-500 max-w-sm leading-relaxed">
-              Boltlabs Agency | Founder: Vikrant Kapoor | Headquarters: Delhi, India.
+              Boltlabs Agency | Founder: Rajat Adhikari | Headquarters: Delhi, India.
             </p>
           </div>
 
