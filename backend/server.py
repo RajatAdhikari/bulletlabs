@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import logging
+import resend
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List
@@ -43,12 +45,45 @@ async def root():
     return {"message": "Boltlabs API"}
 
 
+resend.api_key = os.environ.get('RESEND_API_KEY')
+
+
+async def send_lead_notification(msg: "ContactMessage"):
+    try:
+        params = {
+            "from": os.environ['SENDER_EMAIL'],
+            "to": [os.environ['NOTIFY_EMAIL']],
+            "subject": f"New Lead: {msg.name} — Boltlabs",
+            "html": f"""
+            <table width='100%' cellpadding='0' cellspacing='0' style='background:#0a0a0a;padding:32px;font-family:Arial,sans-serif;'>
+              <tr><td>
+                <table width='600' cellpadding='0' cellspacing='0' style='margin:0 auto;background:#141414;border-radius:12px;padding:32px;color:#ffffff;'>
+                  <tr><td style='font-size:20px;font-weight:bold;color:#B26CE8;padding-bottom:16px;'>&#9889; New Lead — Boltlabs</td></tr>
+                  <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>NAME</td></tr>
+                  <tr><td style='padding-bottom:12px;font-size:16px;'>{msg.name}</td></tr>
+                  <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>EMAIL</td></tr>
+                  <tr><td style='padding-bottom:12px;font-size:16px;'><a href='mailto:{msg.email}' style='color:#B26CE8;'>{msg.email}</a></td></tr>
+                  <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>PROJECT DETAILS</td></tr>
+                  <tr><td style='font-size:15px;line-height:1.6;'>{msg.details}</td></tr>
+                  <tr><td style='padding-top:24px;color:#71717a;font-size:12px;'>Received {msg.timestamp.strftime('%d %b %Y, %H:%M UTC')}</td></tr>
+                </table>
+              </td></tr>
+            </table>
+            """,
+        }
+        email = await asyncio.to_thread(resend.Emails.send, params)
+        logger.info(f"Lead notification sent: {email.get('id')}")
+    except Exception as e:
+        logger.error(f"Failed to send lead notification: {e}")
+
+
 @api_router.post("/contact", response_model=ContactMessage)
 async def create_contact_message(input: ContactMessageCreate):
     msg = ContactMessage(**input.model_dump())
     doc = msg.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
     await db.contact_messages.insert_one(doc)
+    asyncio.create_task(send_lead_notification(msg))
     return msg
 
 
