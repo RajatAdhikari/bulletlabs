@@ -1,0 +1,124 @@
+{
+  "theme": "dark",
+  "archetype": "5",
+  "archetype_name": "Luxury with Electric Neon Accents",
+  "design_philosophy": "A cinematic, immersive, and premium 3D digital agency experience. We fuse the deep, moody tension of high-end luxury with the raw, synthetic energy of neon violet glowing accents. Color is not used as a blanket, but as a light source. Every component must feel architectural, with generous negative space and fluid, physics-based interactions.",
+  "colors": {
+    "background_primary": "#030303",
+    "background_secondary": "#0A0A0A",
+    "surface_glass": "rgba(255, 255, 255, 0.03)",
+    "surface_glass_border": "rgba(255, 255, 255, 0.08)",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A1A1AA",
+    "accent_primary": "#9D4CDD",
+    "accent_glow": "rgba(157, 76, 221, 0.4)",
+    "accent_hover": "#B26CE8"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "'Unbounded', sans-serif",
+      "body": "'Space Grotesk', sans-serif"
+    },
+    "scale": {
+      "h1": "text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] tracking-tighter leading-none font-black",
+      "h2": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-tight font-bold",
+      "h3": "text-2xl sm:text-3xl tracking-tight font-semibold",
+      "body": "text-base md:text-lg leading-relaxed text-zinc-400 font-light",
+      "overline": "text-xs sm:text-sm tracking-[0.2em] uppercase text-zinc-500 font-medium"
+    },
+    "rules": [
+      "No Inter or generic sans-serif fonts for any headings.",
+      "Main headline must use a bold masking text effect (e.g. background-clip: text with a subtle gradient or texture, or staggered Framer Motion reveal).",
+      "Avoid centering paragraphs. Keep dense text left-aligned for tension."
+    ]
+  },
+  "layout_and_spacing": {
+    "section_padding": "py-24 md:py-32 lg:py-40",
+    "container": "max-w-[1400px] mx-auto px-6 md:px-12",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8",
+    "rules": [
+      "Use massive spacing between major sections (py-32 minimum).",
+      "Implement asymmetrical 'Bento' or 'Masonry' layouts for the Work Showcase.",
+      "Images/Canvas must not block scroll events on mobile devices."
+    ]
+  },
+  "components": {
+    "navbar": {
+      "style": "Glassmorphism: fixed top-0 w-full z-50 backdrop-blur-2xl bg-black/40 border-b border-white/5",
+      "links": "Space Grotesk, text-sm, text-zinc-400 hover:text-white transition-colors",
+      "cta": "Solid white button, black text, rounded-full px-6 py-2.5 text-sm font-semibold hover:scale-105 transition-transform"
+    },
+    "hero_3d": {
+      "library": "@react-three/fiber, @react-three/drei",
+      "geometry": "TorusKnot or Icosahedron",
+      "material": "MeshPhysicalMaterial with clearcoat=1, roughness=0.1, transmission=0.9, thickness=0.5",
+      "lighting": "Studio lighting, directional light, ambient light, and Environment preset='city'",
+      "interaction": "Object gently rotates and responds to mouse coordinates (useFrame lerp)",
+      "layout": "Absolute inset-0, z-0. Text content overlays it relative z-10 pointer-events-none (enable pointer events only on buttons)."
+    },
+    "infinite_marquee": {
+      "library": "react-fast-marquee",
+      "style": "py-12 overflow-hidden border-y border-white/5 bg-black",
+      "text": "text-6xl md:text-8xl font-black uppercase tracking-tighter text-transparent"
+    },
+    "services_cards": {
+      "animation": "3D Tilt effect using framer-motion (onMouseMove mapping to rotateX, rotateY)",
+      "surface": "Crystal glass variant: bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/[0.04] transition-colors",
+      "glow": "Hover should reveal a subtle purple radial gradient glow in the background."
+    },
+    "faq_accordion": {
+      "library": "framer-motion or shadcn/accordion customized",
+      "style": "border-b border-white/10 py-6",
+      "title": "text-xl font-medium hover:text-purple-400 transition-colors",
+      "content": "text-zinc-400 pt-4 leading-relaxed"
+    },
+    "contact_form": {
+      "inputs": "bg-transparent border-b border-white/20 focus:border-purple-500 py-4 w-full outline-none transition-colors text-white placeholder:text-zinc-600 rounded-none",
+      "button": "mt-8 w-full md:w-auto px-8 py-4 bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300"
+    }
+  },
+  "motion_and_interaction": {
+    "scroll": "MUST use Lenis for smooth momentum scrolling.",
+    "page_load": "Staggered text reveal on Hero headline (split text into words/chars, animate y and opacity).",
+    "scroll_reveals": "Framer motion whileInView: opacity 0 to 1, y: 40 to 0, duration 0.8s, ease [0.16, 1, 0.3, 1].",
+    "accessibility": "Respect prefers-reduced-motion using useReducedMotion hook from framer-motion."
+  },
+  "media_and_images": {
+    "hero_fallback": {
+      "url": "https://images.pexels.com/photos/29450016/pexels-photo-29450016.jpeg",
+      "alt": "Luminous 3D geometric shapes dark abstract",
+      "usage": "Use as a fallback background or texture map if WebGL fails."
+    },
+    "work_project_1": {
+      "url": "https://images.pexels.com/photos/36136699/pexels-photo-36136699.jpeg",
+      "alt": "Dark mode mobile app dashboard UI",
+      "usage": "Work Showcase section, primary project image."
+    },
+    "work_project_2": {
+      "url": "https://images.unsplash.com/photo-1634084462412-b54873c0a56d",
+      "alt": "Modern minimalist website landing page",
+      "usage": "Work Showcase section, secondary project image."
+    },
+    "work_project_3": {
+      "url": "https://images.pexels.com/photos/5678243/pexels-photo-5678243.jpeg",
+      "alt": "Smartphone displaying apps in dim lighting",
+      "usage": "Work Showcase section, tertiary project image."
+    }
+  },
+  "testing_and_accessibility": {
+    "data_testid_rules": "All interactive elements (buttons, links, form inputs, accordion triggers) MUST include a data-testid attribute formatted in kebab-case based on role.",
+    "contrast": "Ensure text over 3D canvas remains highly legible. Apply a subtle radial gradient dark overlay behind the text if necessary."
+  },
+  "instructions_to_main_agent": [
+    "1. Initialize React app with Tailwind CSS.",
+    "2. Install required dependencies: framer-motion, @studio-freight/react-lenis, three, @react-three/fiber, @react-three/drei, react-fast-marquee, lucide-react.",
+    "3. Fetch 'Unbounded' and 'Space Grotesk' fonts from Google Fonts.",
+    "4. Build the immersive 3D Hero using a TorusKnot geometry. The canvas must sit behind the text, and pointer events on the canvas should only track mouse movement (do not block scrolling).",
+    "5. Build the text staggered reveal for 'We Build Digital Dimensions.'",
+    "6. Create the Infinite Marquee.",
+    "7. Construct the Work Showcase with the provided placeholder project images.",
+    "8. Build 3D Tilt Cards for the Services section.",
+    "9. Implement Framer Motion FAQ accordion.",
+    "10. Create Contact Form and Footer."
+  ]
+}
