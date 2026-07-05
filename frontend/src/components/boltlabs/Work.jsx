@@ -60,13 +60,14 @@ const Work = () => {
           {projects.map((p, i) => (
             <motion.a
               key={p.title}
-              href="#contact"
-              onClick={(e) => e.preventDefault()}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className={`group relative rounded-2xl overflow-hidden border border-white/10 ${p.span} ${i === 2 ? "h-[320px] md:h-[420px]" : "h-[320px] md:h-[460px]"}`}
+              className={`group relative block rounded-2xl overflow-hidden border border-white/10 cursor-pointer ${p.span} h-[320px] md:h-[420px]`}
               data-testid={`work-card-${i + 1}`}
             >
               <img
