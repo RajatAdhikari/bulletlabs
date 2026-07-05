@@ -3,22 +3,32 @@ import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
-    title: "Nebula Finance",
-    cat: "React Web App · 3D Experience",
-    img: "https://images.pexels.com/photos/36136699/pexels-photo-36136699.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    title: "LUXONN",
+    cat: "Luxury Real Estate · Landing Page",
+    img: "/work/villa.jpg",
+    href: "https://luxuryvillaa.vercel.app/",
     span: "md:col-span-7",
   },
   {
-    title: "Aura Studio",
-    cat: "Landing Page · CRO",
-    img: "https://images.unsplash.com/photo-1634084462412-b54873c0a56d?auto=format&fit=crop&w=1200&q=80",
+    title: "PIXZEN",
+    cat: "Digital & AI Agency · React Website",
+    img: "/work/pixel.jpg",
+    href: "https://pixel-alpha-peach.vercel.app/",
     span: "md:col-span-5",
   },
   {
-    title: "Pulse Social",
-    cat: "Social Media Campaign",
-    img: "https://images.pexels.com/photos/5678243/pexels-photo-5678243.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    span: "md:col-span-12",
+    title: "Rajjo",
+    cat: "Wellness Companion · Web Experience",
+    img: "/work/meditation.jpg",
+    href: "https://meditation-sable.vercel.app/",
+    span: "md:col-span-5",
+  },
+  {
+    title: "Boltlabs Studio",
+    cat: "Brand & Visual Storytelling",
+    img: "/work/aquarium.jpg",
+    href: "https://aquarium-sandy.vercel.app/",
+    span: "md:col-span-7",
   },
 ];
 
