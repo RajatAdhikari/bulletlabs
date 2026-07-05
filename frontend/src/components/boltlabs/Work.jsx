@@ -22,6 +22,7 @@ const projects = [
     img: "/work/meditation.jpg",
     href: "https://meditation-sable.vercel.app/",
     span: "md:col-span-5",
+    pos: "object-right-top",
   },
   {
     title: "Boltlabs Studio",
@@ -74,7 +75,7 @@ const Work = () => {
                 src={p.img}
                 alt={p.title}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                className={`absolute inset-0 w-full h-full object-cover ${p.pos || "object-top"} transition-transform duration-[1.2s] ease-out group-hover:scale-105`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-end justify-between">
