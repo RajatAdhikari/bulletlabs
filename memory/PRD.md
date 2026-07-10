@@ -28,6 +28,7 @@ Build a production-ready, highly interactive dark-themed 3D landing page for age
 - [x] SEO meta tags, semantic HTML, heading hierarchy
 - [x] E2E tested: 100% backend + frontend (iteration_1.json)
 - [x] Email notification via Resend to boltlabs1@gmail.com on new lead (non-blocking, July 2026)
+- [x] Privacy Policy (/privacy-policy) & Terms and Conditions (/terms-and-conditions) pages for Meta/Google ads compliance, footer legal links (July 2026)
 
 ## Backlog
 - P1: Admin view/protection for GET /api/contact (currently public)
