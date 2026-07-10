@@ -30,6 +30,7 @@ class ContactMessage(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
     email: EmailStr
+    phone: str = ""
     details: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -63,6 +64,8 @@ async def send_lead_notification(msg: "ContactMessage"):
                   <tr><td style='padding-bottom:12px;font-size:16px;'>{msg.name}</td></tr>
                   <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>EMAIL</td></tr>
                   <tr><td style='padding-bottom:12px;font-size:16px;'><a href='mailto:{msg.email}' style='color:#B26CE8;'>{msg.email}</a></td></tr>
+                  <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>PHONE</td></tr>
+                  <tr><td style='padding-bottom:12px;font-size:16px;'><a href='tel:{msg.phone}' style='color:#B26CE8;'>{msg.phone}</a></td></tr>
                   <tr><td style='padding:8px 0;color:#a1a1aa;font-size:13px;'>PROJECT DETAILS</td></tr>
                   <tr><td style='font-size:15px;line-height:1.6;'>{msg.details}</td></tr>
                   <tr><td style='padding-top:24px;color:#71717a;font-size:12px;'>Received {msg.timestamp.strftime('%d %b %Y, %H:%M UTC')}</td></tr>

@@ -7,12 +7,12 @@ import { toast } from "sonner";
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", details: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", details: "" });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.details.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.details.trim()) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -20,7 +20,7 @@ const Contact = () => {
     try {
       await axios.post(`${API}/contact`, form);
       toast.success("Message received! We'll get back to you within 24 hours.");
-      setForm({ name: "", email: "", details: "" });
+      setForm({ name: "", email: "", phone: "", details: "" });
     } catch (err) {
       toast.error("Something went wrong. Please try again or email us directly.");
     } finally {
@@ -102,6 +102,18 @@ const Contact = () => {
                 placeholder="you@company.com"
                 className="bg-transparent border-b border-white/20 focus:border-[#9D4CDD] py-4 w-full outline-none transition-colors text-white placeholder:text-zinc-600 rounded-none"
                 data-testid="contact-input-email"
+              />
+            </div>
+            <div>
+              <label htmlFor="contact-phone" className="text-xs uppercase tracking-[0.2em] text-zinc-500">Phone Number</label>
+              <input
+                id="contact-phone"
+                type="tel"
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                placeholder="+91 98765 43210"
+                className="bg-transparent border-b border-white/20 focus:border-[#9D4CDD] py-4 w-full outline-none transition-colors text-white placeholder:text-zinc-600 rounded-none"
+                data-testid="contact-input-phone"
               />
             </div>
             <div>
