@@ -38,6 +38,7 @@ class ContactMessage(BaseModel):
 class ContactMessageCreate(BaseModel):
     name: str = Field(min_length=1, max_length=200)
     email: EmailStr
+    phone: str = Field(min_length=5, max_length=20)
     details: str = Field(min_length=1, max_length=5000)
 
 
