@@ -1,5 +1,5 @@
 import { Instagram, Mail, Phone, Zap } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const socials = [
   { icon: Instagram, label: "Instagram", href: "https://instagram.com/boltlabs" },
@@ -44,10 +44,10 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-zinc-600">
           <p>© {new Date().getFullYear()} Boltlabs. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link to="/privacy-policy" className="hover:text-[#B26CE8] transition-colors" data-testid="footer-privacy-link">
+            <Link href="/privacy-policy" className="hover:text-[#B26CE8] transition-colors" data-testid="footer-privacy-link">
               Privacy Policy
             </Link>
-            <Link to="/terms-and-conditions" className="hover:text-[#B26CE8] transition-colors" data-testid="footer-terms-link">
+            <Link href="/terms-and-conditions" className="hover:text-[#B26CE8] transition-colors" data-testid="footer-terms-link">
               Terms &amp; Conditions
             </Link>
             <p>We Build Digital Dimensions.</p>

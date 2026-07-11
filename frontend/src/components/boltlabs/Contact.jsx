@@ -1,10 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Instagram, Send, Loader2 } from "lucide-react";
-import axios from "axios";
 import { toast } from "sonner";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", details: "" });
@@ -18,7 +17,12 @@ const Contact = () => {
     }
     setLoading(true);
     try {
-      await axios.post(`${API}/contact`, form);
+      const res = await fetch("/contact-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Request failed");
       toast.success("Message received! We'll get back to you within 24 hours.");
       setForm({ name: "", email: "", phone: "", details: "" });
     } catch (err) {

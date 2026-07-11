@@ -1,9 +1,11 @@
-import { Suspense, lazy } from "react";
+"use client";
+
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import dynamic from "next/dynamic";
 import { scrollToId } from "./Navbar";
 
-const Scene3D = lazy(() => import("./Scene3D"));
+const Scene3D = dynamic(() => import("./Scene3D"), { ssr: false });
 
 const headline = ["We", "Build", "Digital", "Dimensions."];
 
@@ -14,9 +16,7 @@ const Hero = () => {
       className="relative min-h-screen flex items-center overflow-hidden"
       data-testid="hero-section"
     >
-      <Suspense fallback={null}>
-        <Scene3D />
-      </Suspense>
+      <Scene3D />
 
       <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(3,3,3,0.55)_75%,#030303_100%)]" />
 

@@ -1,0 +1,29 @@
+{
+  "summary": "Full re-verification of Boltlabs Next.js 15 migration (frontend-only). All requested flows verified working after resolving a stale build-artifact issue (see RCA). API route /contact-form validates & sends via Resend correctly (200/422/400). Home page loads all sections including 3D canvas, FAQ accordion opens/closes, contact form submits & clears, legal pages SSG-load with correct H1 & SEO metadata, all 4 work links open in _blank with rel=noopener noreferrer, no console errors, no 4xx/5xx network responses.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_7.json"],
+  "action_items": [
+    "Ensure the deployed dev/prod pipeline does not leave stale .next build artifacts. In dev mode, the presence of prior `next build` output caused Next.js to serve HTML referencing dev chunk paths (main-app.js, app-pages-internals.js, app/layout.js, app/page.js, app/layout.css) that returned 404. Recommend: (a) run `rm -rf .next` before `next dev`, or (b) add a supervisor prestart hook to purge .next, or (c) run production build and use `next start` instead of `next dev` for the preview environment."
+  ],
+  "critical_code_review_comments": [
+    "contact-form/route.js correctly excludes any DB usage and validates all four fields with sane bounds (name<=200, email regex, phone 5-20, details<=5000). Good.",
+    "Contact.jsx correctly posts to /contact-form (not /api/contact) and shows sonner toast on success/error. Good.",
+    "layout.js metadata is server-rendered (verified via curl - <title> and <meta name='description'> present in initial HTML). Good.",
+    "Minor: contact-form email HTML escapes details but does NOT escape name/email/phone before interpolating into HTML/subject. Not a security bug (Resend HTML rendered in email client only) but XSS-like injection into email templates possible. Recommend escaping all four fields.",
+    "Scene3D adds a global window pointermove listener at module load with no cleanup; harmless for a single-page site but not ideal.",
+    "next.config.js is minimal; consider adding `output: 'standalone'` if deploying, and ignoring @mediapipe source-map warnings (cosmetic noise in dev logs)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (backend testing skipped per request)", "frontend": "100%"},
+  "test_credentials": "N/A",
+  "seed_data_creation": "Sent 2 successful test emails to boltlabs1@gmail.com with TEST_ prefixed names (TEST_agent, TEST_final_agent) per instruction cap. Multiple 422 / 400 validation calls made without sending emails.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 7 tested the Next.js 15 App-Router migration. The route is /contact-form (NOT /api/contact). Do NOT run /app/backend/tests/backend_test.py (old CRA+FastAPI, obsolete). If chunk 404s appear on the preview URL again, run: `rm -rf /app/frontend/.next && sudo supervisorctl restart frontend && sleep 25` before testing UI. data-testids used: hero-section, hero-3d-canvas, services-section, work-section, faq-section, faq-trigger-2, faq-content-2, contact-section, contact-input-{name,email,phone,details}, contact-submit-button, footer-section, main-navbar.",
+  "rca_of_the_issue": "ROOT CAUSE (resolved by test agent): Initial UI runs showed unstyled/unhydrated page and 5 /_next/static/... requests returning 404 (layout.css, main-app.js, app-pages-internals.js, app/layout.js, app/page.js). Investigation: `.next/static/chunks/` contained HASHED production filenames (e.g. main-app-8870c115a6f937d4.js) leftover from a prior `next build`, but the running `next dev` server was serving HTML that referenced UNHASHED dev filenames (main-app.js). Because the leftover build artifacts confused the dev-server's static file resolution, those unhashed chunk paths 404'd. REPRODUCTION: (1) run `next build`, (2) then start `next dev` without clearing .next, (3) request /, (4) referenced /_next/static/chunks/main-app.js returns 404. MITIGATION APPLIED: `rm -rf /app/frontend/.next && sudo supervisorctl restart frontend && sleep 25`. After fix, all chunks return 200, page renders with dark theme, 3D canvas hydrates, contact form works. POST-FIX VERIFICATION: 0 network 4xx/5xx, 0 console errors, all data-testids present, success toast shown, form clears, legal pages 200."
+}

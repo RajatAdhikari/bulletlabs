@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Megaphone, Code2, Rocket, ArrowUpRight } from "lucide-react";
 import { TiltCard } from "./TiltCard";
