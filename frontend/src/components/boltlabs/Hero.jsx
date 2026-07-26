@@ -20,7 +20,7 @@ const Hero = () => {
 
       <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(3,3,3,0.55)_75%,#030303_100%)]" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 w-full pt-32 pb-24 pointer-events-none">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 w-full pt-20 sm:pt-32 pb-24 pointer-events-none">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
